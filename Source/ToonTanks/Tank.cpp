@@ -41,5 +41,5 @@ void ATank::Turn(float value)
   FRotator DeltaRotation = FRotator::ZeroRotator;
   DeltaRotation.Yaw = value * TurnRate * UGameplayStatics::GetWorldDeltaSeconds(this);
 
-  AddActorLocalRotation(DeltaRotation);
+  AddActorLocalRotation(DeltaRotation, true);
 }

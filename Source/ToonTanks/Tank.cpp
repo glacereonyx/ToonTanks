@@ -22,6 +22,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
   Super::SetupPlayerInputComponent(PlayerInputComponent);
 
   PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
+  PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ATank::Turn);
 }
 
 void ATank::Move(float Value)
@@ -29,5 +30,16 @@ void ATank::Move(float Value)
   FVector DeltaLocation = FVector::ZeroVector;
   DeltaLocation.X = Value * Speed * UGameplayStatics::GetWorldDeltaSeconds(this);
 
-  AddActorLocalOffset(DeltaLocation);
+  AddActorLocalOffset(DeltaLocation, true);
+}
+
+/**
+ * Rotates tank on Y axis.
+ */
+void ATank::Turn(float value)
+{
+  FRotator DeltaRotation = FRotator::ZeroRotator;
+  DeltaRotation.Yaw = value * TurnRate * UGameplayStatics::GetWorldDeltaSeconds(this);
+
+  AddActorLocalRotation(DeltaRotation);
 }
